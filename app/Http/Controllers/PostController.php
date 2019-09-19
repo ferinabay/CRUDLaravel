@@ -29,6 +29,21 @@ class PostController extends Controller
             'category_id' => request('category_id')
         ]);
 
-        return redirect('/home');
+        return redirect()->route('post.index');
+    }
+    public function edit(Post $post) //model binding, yg sebelumnya pakai id, diroute juga diganti
+    {
+        $categories = Category::all();
+
+        return view('post.edit', compact('post', 'categories'));
+    }
+    public function update(Post $post) //model binding, yg sebelumnya pakai id, diroute juga diganti
+    {
+        $post->update([
+            'title' => request('title'),
+            'category_id' => request('category_id'),
+            'content' => request('content')
+        ]);
+        return redirect()->route('post.index');
     }
 }
